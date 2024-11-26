@@ -1,17 +1,28 @@
-import React from 'react'
+import React from "react";
 import Image from "next/image";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 
 import TextExpander from "@/app/_components/TextExpander";
 
-
 export default function Cabin({ cabin }) {
-    const { id, name, max_capacity, regular_price, discount, image, description } =
-        cabin;
+    const {
+        id,
+        name,
+        max_capacity,
+        regular_price,
+        discount,
+        image,
+        description,
+    } = cabin;
     return (
         <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
             <div className="relative scale-[1.15] -translate-x-3">
-                <Image src={image} alt={`Cabin ${name}`} fill className="object-cover" />
+                <Image
+                    src={image}
+                    alt={`Cabin ${name}`}
+                    fill
+                    className="object-cover"
+                />
             </div>
 
             <div>
@@ -27,7 +38,8 @@ export default function Cabin({ cabin }) {
                     <li className="flex gap-3 items-center">
                         <UsersIcon className="h-5 w-5 text-primary-600" />
                         <span className="text-lg">
-                            For up to <span className="font-bold">{max_capacity}</span>{" "}
+                            For up to{" "}
+                            <span className="font-bold">{max_capacity}</span>{" "}
                             guests
                         </span>
                     </li>
@@ -41,11 +53,12 @@ export default function Cabin({ cabin }) {
                     <li className="flex gap-3 items-center">
                         <EyeSlashIcon className="h-5 w-5 text-primary-600" />
                         <span className="text-lg">
-                            Privacy <span className="font-bold">100%</span> guaranteed
+                            Privacy <span className="font-bold">100%</span>{" "}
+                            guaranteed
                         </span>
                     </li>
                 </ul>
             </div>
         </div>
-    )
+    );
 }

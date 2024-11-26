@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 // import { unstable_noStore as noStore } from 'next/cache';
 
 import CabinCard from "@/app/_components/CabinCard";
@@ -7,7 +7,7 @@ import { getCabins } from "@/app/_lib/data-service";
 export default async function CabinList({ filter }) {
     // noStore();
     const cabins = await getCabins();
-    // console.log(cabins);
+    //   console.log(cabins);
     if (cabins.length === 0) return null;
     let displayedCabins = cabins;
 
@@ -16,7 +16,9 @@ export default async function CabinList({ filter }) {
     }
 
     if (filter === "medium") {
-        displayedCabins = cabins.filter((cabin) => cabin.max_capacity <= 6 && cabin.max_capacity > 3);
+        displayedCabins = cabins.filter(
+            (cabin) => cabin.max_capacity <= 6 && cabin.max_capacity > 3
+        );
     }
 
     if (filter === "large") {
@@ -29,5 +31,5 @@ export default async function CabinList({ filter }) {
                 <CabinCard cabin={cabin} key={cabin.id} />
             ))}
         </div>
-    )
+    );
 }
