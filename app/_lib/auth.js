@@ -8,6 +8,14 @@ const authConfig = {
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
   ],
+  callbacks: {
+    authorized({ auth, request }) {
+      return auth?.user?.name ? true : false;
+    },
+  },
+  pages: {
+    signIn: "/login",
+  },
 };
 
 export const { auth, handlers, signIn, signOut } = NextAuth(authConfig);
