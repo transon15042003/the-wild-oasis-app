@@ -29,12 +29,18 @@ const authConfig = {
                 return false;
             }
         },
+        async jwt({ token, user }) {
+            return token;
+        },
         async session({ session, token, user }) {
             // Tùy chỉnh session
             const guest = await getGuest(session.user.email);
             session.user.id = guest.id;
 
             return session;
+        },
+        async redirect({ url, baseUrl }) {
+            return baseUrl; // chuyển hướng về trang chính
         },
     },
     pages: {

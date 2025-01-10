@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export default function Guest() {
     const session = useAuth();
-    // console.log(session);
     return (
         <li>
             {session?.user?.name ? (
