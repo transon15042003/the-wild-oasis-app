@@ -44,7 +44,46 @@ export async function updateProfile(formData) {
     revalidatePath("/account/profile");
 }
 
-export async function deleteReservation(booking_id) {
+export async function createBooking(bookingData, formData) {
+    const { user } = await auth();
+    if (!user) {
+        throw new Error("User is not logged in");
+    }
+
+    const { cabin_id, start_date, end_date, num_nights, cabin_price } =
+        bookingData;
+    const num_guests = +formData.get("num_guests");
+    const observations = formData.get("observations").slice(0, 200);
+
+    const newBooking = {
+        start_date,
+        end_date,
+        num_nights,
+        num_guests,
+        cabin_price: cabin_price,
+        extras_price: 0,
+        total_price: cabin_price,
+        status: "unconfirmed",
+        has_breakfast: false,
+        is_paid: false,
+        observations,
+        guest_id: user.id,
+        cabin_id,
+    };
+
+    console.log(newBooking);
+
+    const { error } = await supabase.from("bookings").insert([newBooking]);
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    revalidatePath(`/cabins/${cabin_id}`);
+    redirect("/cabins/thankyou");
+}
+
+export async function deleteBooking(booking_id) {
     const { user } = await auth();
     if (!user) {
         throw new Error("User is not logged in");

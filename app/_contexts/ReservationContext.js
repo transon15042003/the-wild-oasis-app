@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const ReservationContext = createContext();
 const initialState = { from: null, to: null };
@@ -20,7 +20,9 @@ function useReservation() {
     const context = useContext(ReservationContext);
 
     if (!context) {
-        throw new Error('useReservation must be used within a ReservationProvider');
+        throw new Error(
+            "useReservation must be used within a ReservationProvider"
+        );
     }
 
     return context;
