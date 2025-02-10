@@ -1,5 +1,12 @@
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
-import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
+import {
+    addDays,
+    format,
+    formatDistance,
+    isPast,
+    isToday,
+    parseISO,
+} from "date-fns";
 import DeleteReservation from "./DeleteReservation";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +46,7 @@ function ReservationCard({ booking, onDelete }) {
                     <h3 className="text-xl font-semibold">
                         {num_nights} nights in Cabin {name}
                     </h3>
-                    {isPast(new Date(start_date)) ? (
+                    {isPast(new Date(addDays(start_date, 1))) ? (
                         <span className="bg-yellow-800 text-yellow-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
                             past
                         </span>
@@ -74,7 +81,7 @@ function ReservationCard({ booking, onDelete }) {
             </div>
 
             <div className="flex flex-col border-l border-primary-800 w-[100px]">
-                {!isPast(start_date) ? (
+                {!isPast(new Date(addDays(start_date, 1))) ? (
                     <>
                         <Link
                             href={`/account/reservations/edit/${id}`}
