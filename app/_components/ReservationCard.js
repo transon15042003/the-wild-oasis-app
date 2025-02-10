@@ -74,7 +74,7 @@ function ReservationCard({ booking, onDelete }) {
             </div>
 
             <div className="flex flex-col border-l border-primary-800 w-[100px]">
-                {!isPast(start_date + 1) ? (
+                {!isPast(start_date) ? (
                     <>
                         <Link
                             href={`/account/reservations/edit/${id}`}
