@@ -4,6 +4,7 @@ import CabinList from "@/app/_components/CabinList";
 import Spinner from "@/app/_components/Spinner";
 import Filter from "@/app/_components/Filter";
 import ReservationReminder from "@/app/_components/ReservationReminder";
+import { CAPACITY_FILTER, CAPACITY_FILTER_PARAM } from "@/app/_lib/constants";
 
 export const metadata = {
     title: "Cabins",
@@ -12,7 +13,8 @@ export const metadata = {
 // export const revalidate = 3600; // second(s)
 
 export default async function Page({ searchParams }) {
-    const filter = searchParams?.capacity ?? "all";
+    const filter =
+        searchParams?.[CAPACITY_FILTER_PARAM] ?? CAPACITY_FILTER.all;
 
     return (
         <div>

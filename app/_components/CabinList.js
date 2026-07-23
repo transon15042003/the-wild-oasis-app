@@ -2,6 +2,11 @@ import React from "react";
 // import { unstable_noStore as noStore } from 'next/cache';
 
 import CabinCard from "@/app/_components/CabinCard";
+import {
+    CAPACITY_FILTER,
+    CAPACITY_MEDIUM_MAX,
+    CAPACITY_SMALL_MAX,
+} from "@/app/_lib/constants";
 import { getCabins } from "@/app/_lib/data-service";
 
 export default async function CabinList({ filter }) {
@@ -11,18 +16,24 @@ export default async function CabinList({ filter }) {
     if (cabins.length === 0) return null;
     let displayedCabins = cabins;
 
-    if (filter === "small") {
-        displayedCabins = cabins.filter((cabin) => cabin.max_capacity <= 3);
-    }
-
-    if (filter === "medium") {
+    if (filter === CAPACITY_FILTER.small) {
         displayedCabins = cabins.filter(
-            (cabin) => cabin.max_capacity <= 6 && cabin.max_capacity > 3
+            (cabin) => cabin.max_capacity <= CAPACITY_SMALL_MAX
         );
     }
 
-    if (filter === "large") {
-        displayedCabins = cabins.filter((cabin) => cabin.max_capacity > 6);
+    if (filter === CAPACITY_FILTER.medium) {
+        displayedCabins = cabins.filter(
+            (cabin) =>
+                cabin.max_capacity <= CAPACITY_MEDIUM_MAX &&
+                cabin.max_capacity > CAPACITY_SMALL_MAX
+        );
+    }
+
+    if (filter === CAPACITY_FILTER.large) {
+        displayedCabins = cabins.filter(
+            (cabin) => cabin.max_capacity > CAPACITY_MEDIUM_MAX
+        );
     }
 
     return (

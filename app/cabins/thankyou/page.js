@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ROUTES } from "@/app/_lib/constants";
 
 export default function Page() {
     return (
@@ -7,7 +8,7 @@ export default function Page() {
                 Thank you for your reservation!
             </h1>
             <Link
-                href="/account/reservations"
+                href={ROUTES.reservations}
                 className="underline text-xl text-accent-500 inline-block"
             >
                 Manage your reservations &rarr;

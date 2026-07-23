@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "@/app/_contexts/AuthContext";
+import { ROUTES } from "@/app/_lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,7 +12,7 @@ export default function Guest() {
         <li>
             {session?.user?.name ? (
                 <Link
-                    href="/account"
+                    href={ROUTES.account}
                     className="hover:text-accent-400 transition-colors flex items-center gap-4"
                 >
                     <Image
@@ -25,7 +26,7 @@ export default function Guest() {
                 </Link>
             ) : (
                 <Link
-                    href="/account"
+                    href={ROUTES.account}
                     className="hover:text-accent-400 transition-colors"
                 >
                     Guest area

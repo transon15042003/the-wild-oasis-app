@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import about1 from "@/public/about-1.jpg";
+import { ROUTES } from "@/app/_lib/constants";
 
 export const metadata = {
     title: "About",
@@ -82,7 +83,7 @@ export default function Page() {
 
                     <div>
                         <Link
-                            href="/cabins"
+                            href={ROUTES.cabins}
                             className="inline-block mt-4 bg-accent-500 px-8 py-5 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
                         >
                             Explore our luxury cabins

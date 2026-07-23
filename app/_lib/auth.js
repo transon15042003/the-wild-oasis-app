@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { ROUTES } from "./constants";
 import { createGuest, getGuest } from "./data-service";
 
 const authConfig = {
@@ -44,7 +45,7 @@ const authConfig = {
         },
     },
     pages: {
-        signIn: "/login",
+        signIn: ROUTES.login,
     },
 };
 

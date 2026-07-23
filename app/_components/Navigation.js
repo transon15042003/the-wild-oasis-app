@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ROUTES } from "@/app/_lib/constants";
 import Guest from "./Guest";
 
 export default function Navigation({ children }) {
@@ -7,7 +8,7 @@ export default function Navigation({ children }) {
             <ul className="flex gap-16 items-center">
                 <li>
                     <Link
-                        href="/cabins"
+                        href={ROUTES.cabins}
                         className="hover:text-accent-400 transition-colors"
                     >
                         Cabins
@@ -15,7 +16,7 @@ export default function Navigation({ children }) {
                 </li>
                 <li>
                     <Link
-                        href="/about"
+                        href={ROUTES.about}
                         className="hover:text-accent-400 transition-colors"
                     >
                         About

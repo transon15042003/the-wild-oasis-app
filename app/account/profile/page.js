@@ -1,8 +1,9 @@
 import SelectCountry from "@/app/_components/SelectCountry";
 import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
-// import { useAuth } from "@/app/_contexts/AuthContext";
 import { auth } from "@/app/_lib/auth";
+import { ROUTES } from "@/app/_lib/constants";
 import { getGuest } from "@/app/_lib/data-service";
+import { redirect } from "next/navigation";
 
 export const metadata = {
     title: "Profile",
@@ -10,7 +11,16 @@ export const metadata = {
 
 export default async function Page() {
     const session = await auth();
+
+    if (!session?.user?.email) {
+        redirect(ROUTES.login);
+    }
+
     const guest = await getGuest(session.user.email);
+
+    if (!guest) {
+        redirect(ROUTES.login);
+    }
 
     return (
         <div>
