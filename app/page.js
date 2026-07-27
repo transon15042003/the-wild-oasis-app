@@ -8,8 +8,9 @@ export default function Home() {
         <main className="mt-24">
             <Image
                 src={bg}
-                layout="fill"
+                fill
                 priority
+                sizes="100vw"
                 className="object-cover object-top"
                 quality={80}
                 placeholder="blur"

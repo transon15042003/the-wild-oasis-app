@@ -10,7 +10,7 @@ export const metadata = {
     title: "Cabins",
 };
 
-// export const revalidate = 3600; // second(s)
+export const revalidate = 3600;
 
 export default async function Page({ searchParams }) {
     const filter =

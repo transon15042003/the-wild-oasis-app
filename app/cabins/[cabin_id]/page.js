@@ -5,6 +5,8 @@ import { getCabin, getCabins } from "@/app/_lib/data-service";
 import Spinner from "@/app/_components/Spinner";
 import Cabin from "@/app/_components/Cabin";
 
+export const revalidate = 3600;
+
 export const generateMetadata = async ({ params }) => {
     const { name } = await getCabin(params.cabin_id);
     return {

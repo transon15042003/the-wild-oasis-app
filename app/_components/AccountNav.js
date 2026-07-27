@@ -1,12 +1,12 @@
 "use client";
 
-import { useAuth } from "@/app/_contexts/AuthContext";
+import { SessionProvider, useSession } from "next-auth/react";
 import { ROUTES } from "@/app/_lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AccountNav() {
-    const session = useAuth();
+function AccountNavInner() {
+    const { data: session } = useSession();
 
     return (
         <li>
@@ -33,5 +33,13 @@ export default function AccountNav() {
                 </Link>
             )}
         </li>
+    );
+}
+
+export default function AccountNav() {
+    return (
+        <SessionProvider>
+            <AccountNavInner />
+        </SessionProvider>
     );
 }

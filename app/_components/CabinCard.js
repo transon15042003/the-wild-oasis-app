@@ -1,8 +1,9 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import Link from "next/link";
 import { ROUTES } from "@/app/_lib/constants";
 
-function CabinCard({ cabin }) {
+function CabinCard({ cabin, priority = false }) {
   const { id, name, max_capacity, regular_price, discount, image } = cabin;
 
   return (
@@ -10,8 +11,10 @@ function CabinCard({ cabin }) {
       <div className="relative flex-1">
         <Image
           src={image}
-          layout="fill"
+          fill
           alt={`Cabin ${name}`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 400px"
+          priority={priority}
           className="border-r border-primary-800 object-cover"
         />
       </div>
@@ -47,12 +50,12 @@ function CabinCard({ cabin }) {
         </div>
 
         <div className="bg-primary-950 border-t border-t-primary-800 text-right">
-          <a
+          <Link
             href={ROUTES.cabin(id)}
             className="border-l border-primary-800 py-4 px-6 inline-block hover:bg-accent-600 transition-all hover:text-primary-900"
           >
             Details & reservation &rarr;
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import { eachDayOfInterval } from "date-fns";
+import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import {
     BOOKING_STATUS,
+    CABINS_REVALIDATE_SECONDS,
     COUNTRIES_API_URL,
     COUNTRIES_REVALIDATE_SECONDS,
     TABLES,
@@ -10,7 +12,7 @@ import { supabase } from "./supabase";
 /////////////
 // GET
 
-export async function getCabin(id) {
+async function fetchCabin(id) {
     const { data, error } = await supabase
         .from(TABLES.cabins)
         .select("*")
@@ -22,9 +24,22 @@ export async function getCabin(id) {
 
     if (error) {
         console.error(error);
-        return notFound();
+        return null;
     }
 
+    return data;
+}
+
+const getCachedCabin = unstable_cache(
+    async (id) => fetchCabin(id),
+    ["cabin"],
+    { revalidate: CABINS_REVALIDATE_SECONDS, tags: ["cabins"] }
+);
+
+export async function getCabin(id) {
+    const data = await getCachedCabin(String(id));
+
+    if (!data) return notFound();
     return data;
 }
 
@@ -42,22 +57,26 @@ export async function getCabinPrice(id) {
     return data;
 }
 
-export const getCabins = async function () {
-    const { data, error } = await supabase
-        .from(TABLES.cabins)
-        .select("id, name, max_capacity, regular_price, discount, image")
-        .order("name");
+export const getCabins = unstable_cache(
+    async function () {
+        const { data, error } = await supabase
+            .from(TABLES.cabins)
+            .select("id, name, max_capacity, regular_price, discount, image")
+            .order("name");
 
-    if (error) {
-        console.error(error);
-        throw new Error("Cabins could not be loaded");
-    }
+        if (error) {
+            console.error(error);
+            throw new Error("Cabins could not be loaded");
+        }
 
-    // For testing
-    // await new Promise((res) => setTimeout(res, 2000));
+        // For testing
+        // await new Promise((res) => setTimeout(res, 2000));
 
-    return data;
-};
+        return data;
+    },
+    ["cabins"],
+    { revalidate: CABINS_REVALIDATE_SECONDS, tags: ["cabins"] }
+);
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
