@@ -29,11 +29,19 @@ export async function updateProfile(formData) {
         throw new Error("User is not logged in");
     }
 
-    const national_id = formData.get("national_id");
-    const [nationality, country_flag] = formData.get("nationality").split("%");
+    const nationalIdRaw = (formData.get("national_id") ?? "").toString().trim();
+    const national_id = nationalIdRaw === "" ? null : nationalIdRaw;
 
-    if (!NATIONAL_ID_PATTERN.test(national_id)) {
+    if (national_id !== null && !NATIONAL_ID_PATTERN.test(national_id)) {
         throw new Error("Invalid national ID");
+    }
+
+    const nationalityRaw = (formData.get("nationality") || "").toString();
+    let nationality = null;
+    let country_flag = null;
+
+    if (nationalityRaw !== "") {
+        [nationality, country_flag] = nationalityRaw.split("%");
     }
 
     const updateData = { national_id, country_flag, nationality };

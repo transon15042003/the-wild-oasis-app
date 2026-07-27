@@ -1,12 +1,11 @@
 "use client";
 
 import { updateProfile } from "../_lib/actions";
-import { useFormStatus } from "react-dom";
 import SubmitButton from "./SubmitButton";
 // import Image from "next/image";
 
 export default function UpdateProfileForm({ guest, children }) {
-    const { full_name, email, nationality, country_flag, national_id } = guest;
+    const { full_name, email, country_flag, national_id } = guest;
 
     return (
         <form
@@ -36,11 +35,13 @@ export default function UpdateProfileForm({ guest, children }) {
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <label htmlFor="nationality">Where are you from?</label>
-                    <img
-                        src={country_flag}
-                        alt="Country flag"
-                        className="h-5 rounded-sm"
-                    />
+                    {country_flag ? (
+                        <img
+                            src={country_flag}
+                            alt="Country flag"
+                            className="h-5 rounded-sm"
+                        />
+                    ) : null}
                 </div>
                 {children}
             </div>
@@ -49,9 +50,12 @@ export default function UpdateProfileForm({ guest, children }) {
                 <label htmlFor="nationalID">National ID number</label>
                 <input
                     name="national_id"
-                    defaultValue={national_id}
+                    defaultValue={national_id ?? ""}
                     className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
                 />
+                <p className="text-sm text-primary-300">
+                    Optional. 6–12 letters or numbers if provided.
+                </p>
             </div>
 
             <SubmitButton pendingText="Updating...">
