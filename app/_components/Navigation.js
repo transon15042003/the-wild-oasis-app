@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ROUTES } from "@/app/_lib/constants";
-import Guest from "./Guest";
+import AccountNav from "./AccountNav";
 
 export default function Navigation({ children }) {
     return (
@@ -22,7 +22,7 @@ export default function Navigation({ children }) {
                         About
                     </Link>
                 </li>
-                <Guest />
+                <AccountNav />
             </ul>
         </nav>
     );

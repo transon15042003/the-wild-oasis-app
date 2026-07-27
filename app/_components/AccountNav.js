@@ -5,9 +5,9 @@ import { ROUTES } from "@/app/_lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Guest() {
+export default function AccountNav() {
     const session = useAuth();
-    // console.log(session);
+
     return (
         <li>
             {session?.user?.name ? (
@@ -22,14 +22,14 @@ export default function Guest() {
                         width={32}
                         height={32}
                     />
-                    <span>Guest area</span>
+                    <span>Account</span>
                 </Link>
             ) : (
                 <Link
-                    href={ROUTES.account}
+                    href={ROUTES.login}
                     className="hover:text-accent-400 transition-colors"
                 >
-                    Guest area
+                    Login
                 </Link>
             )}
         </li>

@@ -1,7 +1,7 @@
 import Welcome from "@/app/_components/Welcome";
 
 export const metadata = {
-    title: "Guest area",
+    title: "Account",
 };
 
 export default function AccountPage() {

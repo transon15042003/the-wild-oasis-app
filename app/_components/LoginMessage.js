@@ -7,7 +7,7 @@ function LoginMessage() {
       <p className="text-center text-xl py-12 self-center">
         Please{" "}
         <Link href={ROUTES.login} className="underline text-accent-500">
-          login
+          sign in
         </Link>{" "}
         to reserve this
         <br /> cabin right now
